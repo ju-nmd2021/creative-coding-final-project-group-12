@@ -1,5 +1,17 @@
+// The lines x-x were adapted from https://www.youtube.com/watch?v=mhjuuHl6qHM&t=2253s&ab_channel=TheCodingTrain Accessed: 2023-09-25
+// I followed the referenced tutorial above on creating a flocking simulation which is not my original idea. However, I have made my own changes to the code
+
 let img;
 let imgURL = "image.jpg";
+let colorValue;
+let dotSize = 1;
+
+const flock = [];
+
+let alignSlider;
+let cohesionSlider;
+let separationSlider;
+let dotSizeSlider;
 
 function preload() {
   img = loadImage(imgURL);
@@ -9,6 +21,35 @@ function preload() {
 function setup() {
   createCanvas(innerWidth, innerHeight);
   background(255);
+
+  alignSlider = createSlider(0, 7, 1, 0.1);
+  cohesionSlider = createSlider(0, 7, 1, 0.1);
+  separationSlider = createSlider(0, 7, 1, 0.1);
+
+  dotSizeSlider = createSlider(0, 7, 1, 0.1);
+  dotSize = dotSizeSlider.value();
+
+  push();
+  textSize(12);
+  noStroke();
+  fill(0);
+
+  text("Alignment:", 15, 28);
+  alignSlider.position(30, 50);
+  alignSlider.style("width", "150px");
+
+  text("Cohesion:", 15, 68);
+  cohesionSlider.position(30, 90);
+  cohesionSlider.style("width", "150px");
+
+  text("Separation:", 15, 108);
+  separationSlider.position(30, 130);
+  separationSlider.style("width", "150px");
+
+  text("Size:", 15, 148);
+  dotSizeSlider.position(30, 170);
+  dotSizeSlider.style("width", "150px");
+  pop();
 
   for (let i = 0; i < random(150, 500); i++) {
     flock.push(new Dot());
