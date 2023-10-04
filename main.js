@@ -22,6 +22,10 @@ function setup() {
   createCanvas(innerWidth, innerHeight);
   background(255);
 
+  for (let i = 0; i < random(150, 500); i++) {
+    flock.push(new Dot());
+  }
+
   alignSlider = createSlider(0, 7, 1, 0.1);
   cohesionSlider = createSlider(0, 7, 1, 0.1);
   separationSlider = createSlider(0, 7, 1, 0.1);
@@ -50,10 +54,6 @@ function setup() {
   dotSizeSlider.position(30, 170);
   dotSizeSlider.style("width", "150px");
   pop();
-
-  for (let i = 0; i < random(150, 500); i++) {
-    flock.push(new Dot());
-  }
 }
 
 function draw() {
