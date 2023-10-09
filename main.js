@@ -4,7 +4,8 @@
 let img;
 let imgURL = "image.jpg";
 let colorValue;
-let dotSize = 1;
+let dotSize = 2;
+let colorPicker;
 
 const flock = [];
 
@@ -22,38 +23,37 @@ function setup() {
   createCanvas(innerWidth, innerHeight);
   background(255);
 
-  for (let i = 0; i < random(150, 500); i++) {
-    flock.push(new Dot());
+  for (let i = 0; i < random(400, 700); i++) {
+    flock.push(new Dot(createVector(random(width), random(height))));
   }
+
+  // Background rectangle for control pannel
+  push();
+  noStroke();
+  fill("#f1f1f1");
+  rect(0, 0, 330, 180);
+  pop();
 
   alignSlider = createSlider(0, 7, 1, 0.1);
   cohesionSlider = createSlider(0, 7, 1, 0.1);
   separationSlider = createSlider(0, 7, 1, 0.1);
-
-  dotSizeSlider = createSlider(0, 7, 1, 0.1);
+  dotSizeSlider = createSlider(0, 7, 1, 0.5);
   dotSize = dotSizeSlider.value();
 
-  push();
-  textSize(12);
-  noStroke();
-  fill(0);
-
-  text("Alignment:", 15, 28);
   alignSlider.position(30, 50);
   alignSlider.style("width", "150px");
 
-  text("Cohesion:", 15, 68);
   cohesionSlider.position(30, 90);
   cohesionSlider.style("width", "150px");
 
-  text("Separation:", 15, 108);
   separationSlider.position(30, 130);
   separationSlider.style("width", "150px");
 
-  text("Size:", 15, 148);
   dotSizeSlider.position(30, 170);
   dotSizeSlider.style("width", "150px");
-  pop();
+
+  colorPicker = createColorPicker("#9571e3");
+  colorPicker.position(220, 55);
 }
 
 function draw() {
@@ -63,11 +63,36 @@ function draw() {
     dot.update();
     dot.display();
   }
+
+  push();
+  textSize(12);
+  noStroke();
+  fill(30);
+  text("Alignment:", 15, 28);
+  text("Cohesion:", 15, 68);
+  text("Separation:", 15, 108);
+  text("Size:", 15, 148);
+  text("Colorpicker:", 195, 28);
+  text(
+    "Create new dots by pressing the mouse in the color of your choice chosen through the colorpicker",
+    195,
+    75,
+    125
+  );
+  pop();
+
+  mousePositionDots();
+}
+
+function mousePositionDots() {
+  if (mouseIsPressed) {
+    flock.push(new mouseDot(createVector(mouseX, mouseY), colorPicker.color()));
+  }
 }
 
 class Dot {
-  constructor() {
-    this.pos = createVector(random(width), random(height));
+  constructor(position) {
+    this.pos = position;
     // Gives you a random velocity vector (no hard coded values) of unit length 1
     this.vel = p5.Vector.random2D();
     // The velocity is a random value between 0.5 and 3 (speed)
@@ -121,7 +146,7 @@ class Dot {
 
   // Same as align, BUT we are subtracting this.pos
   cohesion(dots) {
-    let perceptionRadius = 100;
+    let perceptionRadius = 70;
     let steering = createVector();
     let total = 0;
 
@@ -209,5 +234,18 @@ class Dot {
     fill(col);
     ellipse(this.pos.x, this.pos.y, dotSize);
     pop();
+  }
+}
+
+class mouseDot extends Dot {
+  constructor(position, colMouse) {
+    super(position);
+    this.col = colMouse;
+  }
+
+  display() {
+    noStroke();
+    fill(this.col);
+    ellipse(this.pos.x, this.pos.y, dotSize);
   }
 }
