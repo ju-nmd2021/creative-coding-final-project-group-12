@@ -239,14 +239,16 @@ class Dot {
 }
 
 class mouseDot extends Dot {
-  constructor(position, colMouse, dotSize) {
+  constructor(position, col, dotSize) {
     super(position, dotSize);
-    this.col = colMouse;
+    this.col = col;
   }
 
   display() {
+    push();
     noStroke();
     fill(this.col);
     ellipse(this.pos.x, this.pos.y, this.dotSize);
+    pop();
   }
 }
