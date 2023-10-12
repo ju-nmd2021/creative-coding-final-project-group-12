@@ -30,13 +30,6 @@ function setup() {
     flock.push(new Dot(createVector(random(width), random(height)), dotSize));
   }
 
-  // Background rectangle for control panel
-  push();
-  noStroke();
-  fill("#f1f1f1");
-  rect(0, 0, 440, 250);
-  pop();
-
   alignSlider = createSlider(0, 5, 1, 0.1);
   cohesionSlider = createSlider(0, 5, 1, 0.1);
   separationSlider = createSlider(0, 5, 1, 0.1);
@@ -54,7 +47,7 @@ function setup() {
   dotSizeSlider.position(48, 218);
   dotSizeSlider.style("width", "150px");
 
-  colorPicker = createColorPicker("#9571e3");
+  colorPicker = createColorPicker("#db70bb");
   colorPicker.position(270, 70);
 }
 
@@ -70,8 +63,13 @@ function draw() {
   }
 
   push();
-  textSize(14);
   noStroke();
+  fill("#cccccc4D");
+  rect(0, 0, 440, 250);
+  pop();
+
+  push();
+  textSize(14);
   fill(30);
   text("Treat each dot as a living being and make them create art for you!", 20, 25);
   textSize(12);
@@ -97,6 +95,14 @@ function draw() {
   text("NOTE! The dots are scared of your mouse...", 255, 195, 125);
   pop();
 
+  push();
+  textSize(14);
+  fill("#4ad486");
+  rect(20, 260, 50, 30);
+  fill(0);
+  text("Save", 29, 280);
+  pop();
+
   mousePositionDots();
 }
 
@@ -107,7 +113,7 @@ function mousePositionDots() {
 }
 
 function mouseClicked() {
-  if (mouseY > 260 && (mouseY < 300) & (mouseX > 20) && mouseX < 60) {
+  if (mouseY > 260 && (mouseY < 290) & (mouseX > 20) && mouseX < 70) {
     save("myArt.jpg");
 
     return false;
