@@ -7,6 +7,9 @@ let colorValue;
 let dotSize = 2;
 let colorPicker;
 
+let x = 330;
+let y = 180;
+
 const flock = [];
 
 let alignSlider;
@@ -27,7 +30,7 @@ function setup() {
     flock.push(new Dot(createVector(random(width), random(height))));
   }
 
-  // Background rectangle for control pannel
+  // Background rectangle for control panel
   push();
   noStroke();
   fill("#f1f1f1");
@@ -74,7 +77,7 @@ function draw() {
   text("Size:", 15, 148);
   text("Colorpicker:", 195, 28);
   text(
-    "Create new dots by pressing the mouse in the color of your choice chosen through the colorpicker",
+    "Create new dots (in the color of your choice chosen through the colorpicker) by pressing the mouse",
     195,
     75,
     125
@@ -85,7 +88,7 @@ function draw() {
 }
 
 function mousePositionDots() {
-  if (mouseIsPressed) {
+  if (mouseIsPressed && mouseX > x && mouseY > y) {
     flock.push(new mouseDot(createVector(mouseX, mouseY), colorPicker.color()));
   }
 }
@@ -203,7 +206,7 @@ class Dot {
   }
 
   flock(dots) {
-    // Force accumulation: Having both alignment, cohesion and separation
+    // Force accumulation: Having both alignment, cohesion and separation at the same time
     this.acc.set(0, 0); // Or mult(0);
     let alignment = this.align(dots);
     let cohesion = this.cohesion(dots);
@@ -213,7 +216,7 @@ class Dot {
     cohesion.mult(cohesionSlider.value());
     separation.mult(separationSlider.value());
 
-    // Add them together to get net force 0
+    // Add them together to get a net force of 0
     this.acc.add(alignment);
     this.acc.add(cohesion);
     this.acc.add(separation);
