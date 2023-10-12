@@ -140,7 +140,7 @@ class Dot {
 
     for (let surroundingDots of dots) {
       if (surroundingDots && surroundingDots.pos && this.pos) {
-        let distance = dist(this.pos.x, this.pos.y, surroundingDots.pos.x, surroundingDots.pos.y);
+        let distance = this.pos.dist(surroundingDots.pos);
         // As long as other isn't me and the distance is less than 100, add it up and divide by the total
         if (distance < perceptionRadius && surroundingDots != this) {
           steering.add(surroundingDots.vel);
@@ -164,8 +164,7 @@ class Dot {
     let total = 0;
 
     for (let surroundingDots of dots) {
-      let distance = dist(this.pos.x, this.pos.y, surroundingDots.pos.x, surroundingDots.pos.y);
-      // As long as other dot isn't me and the distance is less than 100, add it up and divide by the total
+      let distance = this.pos.dist(surroundingDots.pos);
       if (distance < perceptionRadius && surroundingDots != this) {
         // Adding up the velocities of any surrounding dot
         steering.add(surroundingDots.pos);
@@ -173,7 +172,6 @@ class Dot {
       }
     }
 
-    // I only want to divide by the total if total is greater than 0
     if (total > 0) {
       steering.div(total).sub(this.pos).setMag(this.maxSpeed).sub(this.vel).limit(this.maxForce);
     }
@@ -187,8 +185,8 @@ class Dot {
     let total = 0;
 
     for (let surroundingDots of dots) {
-      let distance = dist(this.pos.x, this.pos.y, surroundingDots.pos.x, surroundingDots.pos.y);
-      // As long as other isn't me and the distance is less than 100, add it up and divide by the total
+      let distance = this.pos.dist(surroundingDots.pos);
+
       if (distance < perceptionRadius && surroundingDots != this) {
         let diff = p5.Vector.sub(this.pos, surroundingDots.pos);
         diff.div(distance);
@@ -197,7 +195,6 @@ class Dot {
       }
     }
 
-    // I only want to divide by the total if total is greate than 0
     if (total > 0) {
       steering.div(total).setMag(this.maxSpeed).sub(this.vel).limit(this.maxForce);
     }
