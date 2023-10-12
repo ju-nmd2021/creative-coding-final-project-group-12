@@ -40,7 +40,7 @@ function setup() {
   alignSlider = createSlider(0, 5, 1, 0.1);
   cohesionSlider = createSlider(0, 5, 1, 0.1);
   separationSlider = createSlider(0, 5, 1, 0.1);
-  dotSizeSlider = createSlider(0, 4, 1, 0.5);
+  dotSizeSlider = createSlider(0, 5, 1, 0.2);
 
   alignSlider.position(48, 68);
   alignSlider.style("width", "150px");
@@ -86,7 +86,7 @@ function draw() {
   text("Yes", 198, 173);
   text("Size:", 43, 205);
   text("0", 27, 223);
-  text("4", 198, 223);
+  text("5", 198, 223);
   text("Colorpicker:", 255, 55);
   text(
     "Create new dots (in the color of your choice chosen through the colorpicker) by pressing the mouse",
