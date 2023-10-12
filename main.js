@@ -94,6 +94,7 @@ function draw() {
     105,
     125
   );
+  text("NOTE! The dots are scared of your mouse...", 255, 195, 125);
   pop();
 
   mousePositionDots();
@@ -200,12 +201,34 @@ class Dot {
     return steering;
   }
 
+  fleeMouse() {
+    let perceptionRadius = random(70, 100);
+    let steering = createVector();
+    let total = 0;
+
+    let distance = this.pos.dist(createVector(mouseX, mouseY));
+
+    if (distance < perceptionRadius) {
+      let diff = p5.Vector.sub(createVector(mouseX, mouseY), this.pos);
+      diff.div(distance);
+      steering.sub(diff);
+      total++;
+    }
+
+    if (total > 0) {
+      return steering.div(total).setMag(this.maxSpeed).sub(this.vel).limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
   flock(dots) {
     // Force accumulation: Having both alignment, cohesion and separation at the same time
     this.acc.set(0, 0); // Or mult(0);
     let alignment = this.align(dots);
     let cohesion = this.cohesion(dots);
     let separation = this.separation(dots);
+    let fleeMouse = this.fleeMouse();
 
     alignment.mult(alignSlider.value());
     cohesion.mult(cohesionSlider.value());
@@ -215,6 +238,7 @@ class Dot {
     this.acc.add(alignment);
     this.acc.add(cohesion);
     this.acc.add(separation);
+    this.acc.add(fleeMouse);
   }
 
   update() {
