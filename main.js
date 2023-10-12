@@ -2,7 +2,7 @@
 // I followed the referenced tutorial above on creating a flocking simulation which is not my original idea. However, I have made my own changes to the code
 
 let img;
-let imgURL = "image.jpg";
+let imgURL = "imageinput.jpg";
 let colorValue;
 let dotSize = 1;
 let colorPicker;
