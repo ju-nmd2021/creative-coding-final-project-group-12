@@ -34,7 +34,7 @@ function setup() {
   push();
   noStroke();
   fill("#f1f1f1");
-  rect(0, 0, 400, 230);
+  rect(0, 0, 440, 250);
   pop();
 
   alignSlider = createSlider(0, 5, 1, 0.1);
@@ -42,20 +42,20 @@ function setup() {
   separationSlider = createSlider(0, 5, 1, 0.1);
   dotSizeSlider = createSlider(0, 4, 1, 0.5);
 
-  alignSlider.position(60, 80);
+  alignSlider.position(48, 68);
   alignSlider.style("width", "150px");
 
-  cohesionSlider.position(60, 130);
+  cohesionSlider.position(48, 118);
   cohesionSlider.style("width", "150px");
 
-  separationSlider.position(60, 180);
+  separationSlider.position(48, 168);
   separationSlider.style("width", "150px");
 
-  dotSizeSlider.position(60, 230);
+  dotSizeSlider.position(48, 218);
   dotSizeSlider.style("width", "150px");
 
   colorPicker = createColorPicker("#9571e3");
-  colorPicker.position(280, 85);
+  colorPicker.position(270, 70);
 }
 
 function draw() {
@@ -75,16 +75,16 @@ function draw() {
   fill(30);
   text("Treat each dot as a living being and make them create art for you!", 20, 25);
   textSize(12);
-  text("I want to follow my neighbours:", 45, 55);
+  text("I want to follow my neighbours:", 43, 55);
   text("No", 20, 73);
   text("Yes", 198, 73);
-  text("I want to hug my neighbours:", 45, 105);
+  text("I want to hug my neighbours:", 43, 105);
   text("No", 20, 123);
   text("Yes", 198, 123);
-  text("I want to keep my distance:", 45, 155);
+  text("I want to keep my distance:", 43, 155);
   text("No", 20, 173);
   text("Yes", 198, 173);
-  text("Size:", 45, 205);
+  text("Size:", 43, 205);
   text("0", 27, 223);
   text("4", 198, 223);
   text("Colorpicker:", 255, 55);
