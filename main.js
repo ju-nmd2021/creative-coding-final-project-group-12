@@ -106,6 +106,14 @@ function mousePositionDots() {
   }
 }
 
+function mouseClicked() {
+  if (mouseY > 260 && (mouseY < 300) & (mouseX > 20) && mouseX < 60) {
+    save("myArt.jpg");
+
+    return false;
+  }
+}
+
 class Dot {
   constructor(position, dotSize) {
     this.pos = position;
