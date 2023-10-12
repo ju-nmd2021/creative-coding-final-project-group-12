@@ -7,8 +7,8 @@ let colorValue;
 let dotSize = 1;
 let colorPicker;
 
-let x = 330;
-let y = 180;
+let x = 440;
+let y = 250;
 
 const flock = [];
 
@@ -100,7 +100,7 @@ function draw() {
 }
 
 function mousePositionDots() {
-  if (mouseIsPressed) {
+  if ((mouseIsPressed && mouseX > x && mouseY > 0) || (mouseIsPressed && mouseY > y && mouseX > 0)) {
     flock.push(new mouseDot(createVector(mouseX, mouseY), colorPicker.color(), dotSize));
   }
 }
@@ -134,7 +134,7 @@ class Dot {
   // This function align this dot with all other dots
   // Getting the average velocity of all the dots within a certain radius
   align(dots) {
-    let perceptionRadius = 50;
+    let perceptionRadius = random(50, 70);
     let steering = createVector();
     let total = 0;
 
@@ -164,7 +164,7 @@ class Dot {
 
   // Same as align, BUT we are subtracting this.pos
   cohesion(dots) {
-    let perceptionRadius = 70;
+    let perceptionRadius = random(60, 80);
     let steering = createVector();
     let total = 0;
 
@@ -192,7 +192,7 @@ class Dot {
   }
 
   separation(dots) {
-    let perceptionRadius = 50;
+    let perceptionRadius = random(50, 70);
     let steering = createVector();
     let total = 0;
 
