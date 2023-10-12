@@ -110,8 +110,8 @@ class Dot {
     this.pos = position;
     // Gives you a random velocity vector (no hard coded values) of unit length 1
     this.vel = p5.Vector.random2D();
-    // The velocity is a random value between 0.5 and 3 (speed)
-    this.vel.setMag(random(0.5, 3));
+    // The velocity is a random value between 0.5 and 5 (speed)
+    this.vel.setMag(random(0.5, 5));
     this.acc = createVector();
     this.maxForce = 0.4;
     this.maxSpeed = 2;
