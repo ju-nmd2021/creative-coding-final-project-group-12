@@ -108,7 +108,6 @@ function mousePositionDots() {
 class Dot {
   constructor(position, dotSize) {
     this.pos = position;
-    // Gives you a random velocity vector (no hard coded values) of unit length 1
     this.vel = p5.Vector.random2D();
     // The velocity is a random value between 0.5 and 5 (speed)
     this.vel.setMag(random(0.5, 5));
@@ -131,8 +130,6 @@ class Dot {
     }
   }
 
-  // This function align this dot with all other dots
-  // Getting the average velocity of all the dots within a certain radius
   align(dots) {
     let perceptionRadius = random(50, 70);
     let steering = createVector();
