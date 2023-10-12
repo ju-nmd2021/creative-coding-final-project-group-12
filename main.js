@@ -4,7 +4,7 @@
 let img;
 let imgURL = "image.jpg";
 let colorValue;
-let dotSize = 2;
+let dotSize = 1;
 let colorPicker;
 
 let x = 330;
@@ -27,7 +27,7 @@ function setup() {
   background(255);
 
   for (let i = 0; i < random(400, 700); i++) {
-    flock.push(new Dot(createVector(random(width), random(height))));
+    flock.push(new Dot(createVector(random(width), random(height)), dotSize));
   }
 
   // Background rectangle for control panel
@@ -40,8 +40,7 @@ function setup() {
   alignSlider = createSlider(0, 7, 1, 0.1);
   cohesionSlider = createSlider(0, 7, 1, 0.1);
   separationSlider = createSlider(0, 7, 1, 0.1);
-  dotSizeSlider = createSlider(0, 7, 1, 0.5);
-  dotSize = dotSizeSlider.value();
+  dotSizeSlider = createSlider(0, 4, 1, 0.5);
 
   alignSlider.position(30, 50);
   alignSlider.style("width", "150px");
@@ -60,7 +59,10 @@ function setup() {
 }
 
 function draw() {
+  dotSize = dotSizeSlider.value();
+
   for (let dot of flock) {
+    dot.dotSize = dotSize;
     dot.edges();
     dot.flock(flock);
     dot.update();
@@ -88,13 +90,13 @@ function draw() {
 }
 
 function mousePositionDots() {
-  if (mouseIsPressed && mouseX > x && mouseY > y) {
-    flock.push(new mouseDot(createVector(mouseX, mouseY), colorPicker.color()));
+  if (mouseIsPressed) {
+    flock.push(new mouseDot(createVector(mouseX, mouseY), colorPicker.color(), dotSize));
   }
 }
 
 class Dot {
-  constructor(position) {
+  constructor(position, dotSize) {
     this.pos = position;
     // Gives you a random velocity vector (no hard coded values) of unit length 1
     this.vel = p5.Vector.random2D();
@@ -103,6 +105,7 @@ class Dot {
     this.acc = createVector();
     this.maxForce = 0.4;
     this.maxSpeed = 2;
+    this.dotSize = dotSize;
   }
 
   edges() {
@@ -126,11 +129,13 @@ class Dot {
     let total = 0;
 
     for (let surroundingDots of dots) {
-      let distance = dist(this.pos.x, this.pos.y, surroundingDots.pos.x, surroundingDots.pos.y);
-      // As long as other isn't me and the distance is less than 100, add it up and divide by the total
-      if (distance < perceptionRadius && surroundingDots != this) {
-        steering.add(surroundingDots.vel);
-        total++;
+      if (surroundingDots && surroundingDots.pos && this.pos) {
+        let distance = dist(this.pos.x, this.pos.y, surroundingDots.pos.x, surroundingDots.pos.y);
+        // As long as other isn't me and the distance is less than 100, add it up and divide by the total
+        if (distance < perceptionRadius && surroundingDots != this) {
+          steering.add(surroundingDots.vel);
+          total++;
+        }
       }
     }
 
@@ -235,20 +240,20 @@ class Dot {
     noStroke();
     let col = img.get(random(this.pos.x), random(this.pos.y));
     fill(col);
-    ellipse(this.pos.x, this.pos.y, dotSize);
+    ellipse(this.pos.x, this.pos.y, this.dotSize);
     pop();
   }
 }
 
 class mouseDot extends Dot {
-  constructor(position, colMouse) {
-    super(position);
+  constructor(position, colMouse, dotSize) {
+    super(position, dotSize);
     this.col = colMouse;
   }
 
   display() {
     noStroke();
     fill(this.col);
-    ellipse(this.pos.x, this.pos.y, dotSize);
+    ellipse(this.pos.x, this.pos.y, this.dotSize);
   }
 }
