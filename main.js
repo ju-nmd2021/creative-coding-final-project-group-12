@@ -151,12 +151,7 @@ class Dot {
 
     // I only want to divide by the total if total is greate than 0
     if (total > 0) {
-      steering.div(total);
-      steering.setMag(this.maxSpeed);
-      // Steering = Desired velocity - Velocity
-      steering.sub(this.vel);
-      // Limits the magnitude of a vector
-      steering.limit(this.maxForce);
+      steering.div(total).setMag(this.maxSpeed).sub(this.vel).limit(this.maxForce);
     }
 
     return steering;
@@ -180,12 +175,7 @@ class Dot {
 
     // I only want to divide by the total if total is greater than 0
     if (total > 0) {
-      steering.div(total);
-      steering.sub(this.pos);
-      steering.setMag(this.maxSpeed);
-      // Steering = Desired velocity - Velocity
-      steering.sub(this.vel);
-      steering.limit(this.maxForce);
+      steering.div(total).sub(this.pos).setMag(this.maxSpeed).sub(this.vel).limit(this.maxForce);
     }
 
     return steering;
@@ -209,11 +199,7 @@ class Dot {
 
     // I only want to divide by the total if total is greate than 0
     if (total > 0) {
-      steering.div(total);
-      steering.setMag(this.maxSpeed);
-      // Steering = Desired velocity - Velocity
-      steering.sub(this.vel);
-      steering.limit(this.maxForce);
+      steering.div(total).setMag(this.maxSpeed).sub(this.vel).limit(this.maxForce);
     }
 
     // Always return a vector or 0 if none
