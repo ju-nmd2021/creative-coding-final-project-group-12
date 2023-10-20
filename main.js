@@ -1,4 +1,4 @@
-// The lines x-x were adapted from https://www.youtube.com/watch?v=mhjuuHl6qHM&t=2253s&ab_channel=TheCodingTrain Accessed: 2023-09-25
+// The lines 15-18, 29-35, 57, 59-63, 123-216, 239-244, 247-254 and 258-264 were adapted from https://www.youtube.com/watch?v=mhjuuHl6qHM&t=2253s&ab_channel=TheCodingTrain Accessed: 2023-09-25
 // I followed the referenced tutorial above on creating a flocking simulation which is not my original idea. However, I have made my own changes to the code
 
 let img;
